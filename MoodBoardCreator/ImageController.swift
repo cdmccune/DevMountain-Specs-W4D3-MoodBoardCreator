@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ImageController {
     
@@ -74,6 +75,28 @@ class ImageController {
                 return completion(.failure(.couldNotDecode))
             }
         }.resume()
+        
+    }
+    
+    static func fetchImage(imageURl: ImageURLs, completion: @escaping (Result<UIImage, NetworkingError>) -> Void) {
+        
+        let url = imageURl.small
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if error != nil {
+                return completion(.failure(.errorWithRequest))
+            }
+            
+            guard let data = data else {
+                return completion(.failure(.invalidData))
+            }
+            
+            
+            guard let image = UIImage(data: data) else {
+                return completion(.failure(.couldNotDecode))
+            }
+            return completion(.success(image))
+        }
         
     }
         

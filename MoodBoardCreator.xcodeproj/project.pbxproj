@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24062C1D28510B8D008D72C0 /* QueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24062C1C28510B89008D72C0 /* QueryParams.swift */; };
 		2468E6F92850053E008472FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2468E6F82850053D008472FC /* AppDelegate.swift */; };
 		2468E6FB2850053E008472FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2468E6FA2850053E008472FC /* SceneDelegate.swift */; };
 		2468E6FD2850053E008472FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2468E6FC2850053E008472FC /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24062C1C28510B89008D72C0 /* QueryParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParams.swift; sourceTree = "<group>"; };
 		2468E6F52850053D008472FC /* MoodBoardCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodBoardCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2468E6F82850053D008472FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2468E6FA2850053E008472FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		2468E6F72850053D008472FC /* MoodBoardCreator */ = {
 			isa = PBXGroup;
 			children = (
+				24062C1C28510B89008D72C0 /* QueryParams.swift */,
 				2468E73D285022ED008472FC /* CollectionViewCell.swift */,
 				2468E739285022A8008472FC /* NetworkError.swift */,
 				2468E73728502291008472FC /* ImageController.swift */,
@@ -158,6 +161,7 @@
 				2468E73E285022ED008472FC /* CollectionViewCell.swift in Sources */,
 				2468E6FB2850053E008472FC /* SceneDelegate.swift in Sources */,
 				2468E7382850229C008472FC /* ImageController.swift in Sources */,
+				24062C1D28510B8D008D72C0 /* QueryParams.swift in Sources */,
 				2468E73A285022AB008472FC /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

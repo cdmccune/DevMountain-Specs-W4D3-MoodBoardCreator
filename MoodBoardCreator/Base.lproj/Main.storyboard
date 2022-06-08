@@ -126,6 +126,11 @@
                             <constraint firstItem="f1A-dv-qzl" firstAttribute="leading" secondItem="TiX-Gr-uOc" secondAttribute="leading" id="wTg-mS-lf2"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="colorButton" destination="Mce-gD-P5L" id="ysE-jN-P2g"/>
+                        <outlet property="orientationButton" destination="rq8-lC-oQS" id="pcv-wX-opI"/>
+                        <outlet property="queryLabel" destination="aLg-JV-mVN" id="Ukt-2I-XLq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
