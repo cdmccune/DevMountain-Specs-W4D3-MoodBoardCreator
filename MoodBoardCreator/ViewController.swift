@@ -12,9 +12,10 @@ class ViewController: UIViewController {
     @IBOutlet var queryLabel: UITextField!
     @IBOutlet var orientationButton: UIButton!
     @IBOutlet var colorButton: UIButton!
+    @IBOutlet var searchButton: UIButton!
     
     var orientation: Orientation?
-    var color: ColorQuery?
+    var color = ColorQuery.any
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +60,7 @@ class ViewController: UIViewController {
         Colors.colors.enumerated().forEach { (index,color) in
             
             let index = UIAction(title: color.title, image: color.image ?? UIImage(systemName: "circle.fill") ) { action in
-                self.color = ColorQuery(rawValue: color.queryTerm)
+                self.color = ColorQuery(rawValue: color.queryTerm) ?? .any
             }
             colorChildren.append(index)
         }
@@ -68,51 +69,6 @@ class ViewController: UIViewController {
         colorButton.menu = colorMenu
         colorButton.showsMenuAsPrimaryAction = true
         
-        
-        
-//        colors.forEach { color in
-//            let color = UIAction(title: "blue)", image: UIImage(systemName: "iphone") ) { action in
-//                self.Color = .color
-//            }
-//        }
-        
-//        let blue = UIAction(title: "blue)", image: UIImage(systemName: "iphone") ) { action in
-//            self.orientation = .portrait
-//        }
-//        let yellow = UIAction(title: "Landscape (▬)", image: UIImage(systemName: "iphone.landscape") ) { action in
-//            self.orientation = .landscape
-//        }
-//        let blackAndWhite = UIAction(title: "Any (▬/▮)", image: UIImage(systemName: "rectangle.fill.on.rectangle.angled.fill") ) { action in
-//            self.orientation = Orientation.any
-//        }
-//        let black = UIAction(title: "Portrait (▮)", image: UIImage(systemName: "iphone") ) { action in
-//            self.orientation = .portrait
-//        }
-//        let white = UIAction(title: "Landscape (▬)", image: UIImage(systemName: "iphone.landscape") ) { action in
-//            self.orientation = .landscape
-//        }
-//        let teal = UIAction(title: "Any (▬/▮)", image: UIImage(systemName: "rectangle.fill.on.rectangle.angled.fill") ) { action in
-//            self.orientation = Orientation.any
-//        }
-//        let red = UIAction(title: "Portrait (▮)", image: UIImage(systemName: "iphone") ) { action in
-//            self.orientation = .portrait
-//        }
-//        let green = UIAction(title: "Landscape (▬)", image: UIImage(systemName: "iphone.landscape") ) { action in
-//            self.orientation = .landscape
-//        }
-//        let magenta = UIAction(title: "Any (▬/▮)", image: UIImage(systemName: "rectangle.fill.on.rectangle.angled.fill") ) { action in
-//            self.orientation = Orientation.any
-//        }
-        
-        
-        
-//        let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
-//
-//        guard let key = apiKey, !key.isEmpty else {
-//            print("API key does not exist")
-//            return
-//        }
-//        print("REST API key:", key)
         
         ImageController.fetchTopLevel(color: "blue", orientation: "portrait", query: "ocean") { result in
             switch result {
@@ -132,6 +88,13 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func editingChangedQuerySearch(_ sender: Any) {
+        if let queryTerm = queryLabel.text, queryTerm != "" {
+            searchButton.isEnabled = true
+        } else {
+            searchButton.isEnabled = false
+        }
+    }
     
     
 }
@@ -149,3 +112,10 @@ class ViewController: UIViewController {
 //}
 
 
+//        let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
+//
+//        guard let key = apiKey, !key.isEmpty else {
+//            print("API key does not exist")
+//            return
+//        }
+//        print("REST API key:", key)

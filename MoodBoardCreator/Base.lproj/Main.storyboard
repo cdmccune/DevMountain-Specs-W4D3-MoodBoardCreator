@@ -36,6 +36,9 @@
                                                         <rect key="frame" x="97.5" y="0.0" width="97.5" height="47"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="editingChangedQuerySearch:" destination="BYZ-38-t0r" eventType="editingChanged" id="B6p-q1-fo5"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -80,7 +83,7 @@
                                             <constraint firstItem="Mce-gD-P5L" firstAttribute="width" secondItem="rq8-lC-oQS" secondAttribute="width" id="TrL-Sd-S5L"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAF-TT-WfV">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAF-TT-WfV">
                                         <rect key="frame" x="215" y="0.0" width="158" height="157.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="dAF-TT-WfV" secondAttribute="height" multiplier="1:1" id="IPh-uM-8Au"/>
@@ -130,6 +133,7 @@
                         <outlet property="colorButton" destination="Mce-gD-P5L" id="ysE-jN-P2g"/>
                         <outlet property="orientationButton" destination="rq8-lC-oQS" id="pcv-wX-opI"/>
                         <outlet property="queryLabel" destination="aLg-JV-mVN" id="Ukt-2I-XLq"/>
+                        <outlet property="searchButton" destination="dAF-TT-WfV" id="jxm-y7-mZP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
