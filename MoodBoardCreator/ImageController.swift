@@ -13,6 +13,7 @@ class ImageController {
 
     
     static var readyImages = [UIImage]()
+    static var readyAltDescription = [String?]()
     
     
     static let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
@@ -50,7 +51,7 @@ class ImageController {
         
         guard let builtURL = components?.url else {return completion(.failure(.badBuiltURL))}
         
-        print(builtURL)
+//        print(builtURL)
         
         //Talk to server
         URLSession.shared.dataTask(with: builtURL) { data, response, error in
@@ -90,11 +91,13 @@ class ImageController {
         
       
             guard let url = URL(string: image.URLs.small) else {return completion(.failure(.badBuiltURL))}
-            print(url)
+//            print(url)
             
             URLSession.shared.dataTask(with: url) { data, response, error in
-                if let response = response as? HTTPURLResponse {
-                    print(response.statusCode)
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                    
+                    completion(.failure(.invalidResponse))
+                    return
                 }
                 
                 if error != nil {

@@ -9,4 +9,24 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var image: UIImageView!
+    
+    var altDescription: String?
+    var readyImage: UIImage? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    
+    func updateViews() {
+        if let altDescription = altDescription {
+            descriptionLabel.text = altDescription
+        }
+        if let readyImage = readyImage {
+            image.image = readyImage
+        }
+    }
+    
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var queryLabel: UITextField!
     @IBOutlet var orientationButton: UIButton!
     @IBOutlet var colorButton: UIButton!
@@ -87,6 +88,7 @@ class ViewController: UIViewController {
                     print(error)
                 case .success(let object):
                     
+                    
                     self.getImages(images: object.results)
                 }
             }
@@ -95,19 +97,31 @@ class ViewController: UIViewController {
     
     func getImages(images: [ImageInfo]) {
         ImageController.readyImages = []
+        ImageController.readyAltDescription = []
+        
+        
         images.forEach { image in
+            if let altDescription = image.altDescription {
+                ImageController.readyAltDescription.append(altDescription)
+            } else {
+                ImageController.readyAltDescription.append(nil)
+            }
+            
             ImageController.fetchImage(image: image, completion: { result in
                
-                DispatchQueue.main.async {
+                DispatchQueue.main.sync {
                     switch result {
                     case .success(let image):
-                        print(image)
+                        ImageController.readyImages.append(image)
                     case .failure(let error):
                         print(error)
                     }
+                    self.collectionView.reloadData()
                 }
+                
             })
         }
+        
         
         
     }
@@ -128,17 +142,22 @@ class ViewController: UIViewController {
     
 }
 
-//extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        <#code#>
-//    }
-//    
-//    
-//}
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return ImageController.readyImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {return UICollectionViewCell()}
+        
+        cell.altDescription = ImageController.readyAltDescription[indexPath.row]
+        cell.readyImage = ImageController.readyImages[indexPath.row]
+        
+        return cell
+    }
+    
+    
+}
 
 
 //        let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String

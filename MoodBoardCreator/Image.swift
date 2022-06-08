@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct TopLevelObject:Decodable {
@@ -26,3 +27,5 @@ struct ImageInfo:Decodable {
 struct ImageURLs: Decodable {
     var small: String
 }
+
+

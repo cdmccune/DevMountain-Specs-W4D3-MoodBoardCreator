@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum Orientation: String {
-    case any = "any"
+    case any = ""
     case portrait = "portrait"
     case landscape = "landscape"
 }
@@ -54,5 +54,5 @@ enum ColorQuery: String {
     case red = "red"
     case green = "green"
     case magenta = "magenta"
-    case any = "any"
+    case any = ""
 }
