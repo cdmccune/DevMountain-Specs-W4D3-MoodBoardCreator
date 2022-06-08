@@ -10,8 +10,15 @@ import UIKit
 
 class ImageController {
     
+
+    
+    static var readyImages = [UIImage]()
+    
+    
     static let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
     static let baseURL = "https://api.unsplash.com/search/photos"
+    
+    
     
     static func fetchTopLevel(color: String?, orientation: String?, query: String, completion: @escaping (Result<TopLevelObject, NetworkingError>) -> Void) {
         
@@ -78,35 +85,33 @@ class ImageController {
         
     }
     
-    static func fetchImage(imageURl: ImageURLs, completion: @escaping (Result<UIImage, NetworkingError>) -> Void) {
+    static func fetchImage(image: ImageInfo,completion: @escaping (Result<UIImage, NetworkingError>) -> Void) {
         
-        let url = imageURl.small
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if error != nil {
-                return completion(.failure(.errorWithRequest))
-            }
+      
+            guard let url = URL(string: image.URLs.small) else {return completion(.failure(.badBuiltURL))}
+            print(url)
             
-            guard let data = data else {
-                return completion(.failure(.invalidData))
-            }
-            
-            
-            guard let image = UIImage(data: data) else {
-                return completion(.failure(.couldNotDecode))
-            }
-            return completion(.success(image))
-        }
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let response = response as? HTTPURLResponse {
+                    print(response.statusCode)
+                }
+                
+                if error != nil {
+                    return completion(.failure(.errorWithRequest))
+                }
+                
+                guard let data = data else {
+                    return completion(.failure(.invalidData))
+                }
+                
+                
+                guard let newImage = UIImage(data: data) else {
+                    return completion(.failure(.couldNotDecode))
+                }
+                
+                return completion(.success(newImage))
+            }.resume()
         
     }
-        
-        
-        
-        
-        
-        
-    
-    
-    
-    
 }

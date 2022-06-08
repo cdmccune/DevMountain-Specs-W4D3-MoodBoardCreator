@@ -14,14 +14,17 @@ class ViewController: UIViewController {
     @IBOutlet var colorButton: UIButton!
     @IBOutlet var searchButton: UIButton!
     
-    var orientation: Orientation?
+    
+    var orientation = Orientation.any
     var color = ColorQuery.any
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //MARK: - Styling
-            
+        styleButtons()
+    }
+    
+    func styleButtons() {
         //Orientation Button
         
         let portrait = UIAction(title: "Portrait (▮)", image: UIImage(systemName: "iphone") ) { action in
@@ -68,25 +71,51 @@ class ViewController: UIViewController {
         let colorMenu = UIMenu(title: "Color", options: .displayInline, children: colorChildren)
         colorButton.menu = colorMenu
         colorButton.showsMenuAsPrimaryAction = true
+    }
+    
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        getTopLevelObject()
+    }
+    
+    func getTopLevelObject() {
         
-        
-        ImageController.fetchTopLevel(color: "blue", orientation: "portrait", query: "ocean") { result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let object):
-//                print(object.results[0].URLs[0].small)
-                print(object.results[0].URLs)
-                if let altDescription = object.results[0].altDescription {
-                    print(altDescription)
+        ImageController.fetchTopLevel(color: self.color.rawValue, orientation: self.orientation.rawValue, query: queryLabel.text ?? "Dogs") { result in
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let object):
+                    
+                    self.getImages(images: object.results)
                 }
             }
         }
     }
     
+    func getImages(images: [ImageInfo]) {
+        ImageController.readyImages = []
+        images.forEach { image in
+            ImageController.fetchImage(image: image, completion: { result in
+               
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let image):
+                        print(image)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            })
+        }
+        
+        
+    }
+    
     func loadViews() {
         
     }
+    
     
     @IBAction func editingChangedQuerySearch(_ sender: Any) {
         if let queryTerm = queryLabel.text, queryTerm != "" {

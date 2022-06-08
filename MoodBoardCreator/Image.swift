@@ -24,5 +24,5 @@ struct ImageInfo:Decodable {
 }
 
 struct ImageURLs: Decodable {
-    var small: URL
+    var small: String
 }

@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-enum Orientation {
-    case any
-    case portrait
-    case landscape
+enum Orientation: String {
+    case any = "any"
+    case portrait = "portrait"
+    case landscape = "landscape"
 }
 
 
