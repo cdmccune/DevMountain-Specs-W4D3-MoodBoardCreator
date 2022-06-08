@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet var colorButton: UIButton!
     
     var orientation: Orientation?
-    var color: Color?
+    var color: ColorQuery?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,20 +40,31 @@ class ViewController: UIViewController {
         
         // Color Button
         
-//        let colors = ["blue", "yellow", "black_and_white", "black", "white", "teal", "red", "green", "magenta"]
-        let anyColor = UIAction(title: "Any", image: UIImage(systemName: "circle.fill") ) { action in}
-        let colorImage = UIImage(systemName: "circle.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+
+        let anyColor = UIAction(title: "Any", image: UIImage(systemName: "circle.fill") ) { action in
+            self.color = .any
+        }
         
-        var colorChildren = [anyColor]
+        let white = UIAction(title: "White", image: UIImage(systemName: "circle") ) { action in
+            self.color = .white
+        }
         
-        Color.allCases.enumerated().forEach { (index,color) in
-            let index = UIAction(title: color.rawValue, image: colorImage ) { action in
-                self.color = color
+        let blackAndWhite = UIAction(title: "Black and White", image: UIImage(systemName: "circle.bottomhalf.filled") ) { action in
+            self.color = .blackAndWhite
+        }
+        
+
+        var colorChildren = [anyColor, white, blackAndWhite]
+        
+        Colors.colors.enumerated().forEach { (index,color) in
+            
+            let index = UIAction(title: color.title, image: color.image ?? UIImage(systemName: "circle.fill") ) { action in
+                self.color = ColorQuery(rawValue: color.queryTerm)
             }
             colorChildren.append(index)
         }
         
-        let colorMenu = UIMenu(title: "color", options: .displayInline, children: colorChildren)
+        let colorMenu = UIMenu(title: "Color", options: .displayInline, children: colorChildren)
         colorButton.menu = colorMenu
         colorButton.showsMenuAsPrimaryAction = true
         
