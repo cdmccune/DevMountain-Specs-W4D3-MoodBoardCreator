@@ -11,9 +11,7 @@ import UIKit
 class ImageController {
     
 
-    
-    static var readyImages = [UIImage]()
-    static var readyAltDescription = [String?]()
+    static var images = [ImageInfo]()
     
     
     static let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String

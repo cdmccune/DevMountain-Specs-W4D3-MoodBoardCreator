@@ -139,8 +139,8 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="150" height="150"/>
                                         <connections>
+                                            <outlet property="cellImage" destination="dZg-TW-vo7" id="LEa-dq-HaH"/>
                                             <outlet property="descriptionLabel" destination="eDQ-Iy-JTx" id="sMx-Xd-LlY"/>
-                                            <outlet property="image" destination="dZg-TW-vo7" id="y1u-WB-bzh"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

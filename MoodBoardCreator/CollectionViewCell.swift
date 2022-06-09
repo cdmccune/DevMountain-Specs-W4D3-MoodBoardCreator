@@ -10,23 +10,45 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var image: UIImageView!
+    @IBOutlet var cellImage: UIImageView!
     
-    var altDescription: String?
-    var readyImage: UIImage? {
+    
+    
+    var image: ImageInfo? {
         didSet {
+            print("")
             updateViews()
         }
     }
     
     
     func updateViews() {
-        if let altDescription = altDescription {
-            descriptionLabel.text = altDescription
+        guard let image = image else {return
+            print("Why?")
         }
-        if let readyImage = readyImage {
-            image.image = readyImage
+        print("hit")
+        
+        if let altDescription = image.altDescription {
+            self.descriptionLabel.text = altDescription
+        } else {
+            self.descriptionLabel.text = "No description for this photo!"
         }
+        
+        ImageController.fetchImage(image: image, completion: { result in
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let image):
+                    self.cellImage.image = image
+                case .failure(let error):
+                    self.cellImage.image = UIImage(systemName: "photo.on.rectangle")
+                    print(error)
+                }
+            }
+
+        })
+        
+        
     }
     
 }

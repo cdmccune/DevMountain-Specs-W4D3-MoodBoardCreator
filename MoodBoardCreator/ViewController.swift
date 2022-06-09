@@ -87,48 +87,44 @@ class ViewController: UIViewController {
                 case .failure(let error):
                     print(error)
                 case .success(let object):
-                    
-                    
-                    self.getImages(images: object.results)
-                }
-            }
-        }
-    }
-    
-    func getImages(images: [ImageInfo]) {
-        ImageController.readyImages = []
-        ImageController.readyAltDescription = []
-        
-        
-        images.forEach { image in
-            if let altDescription = image.altDescription {
-                ImageController.readyAltDescription.append(altDescription)
-            } else {
-                ImageController.readyAltDescription.append(nil)
-            }
-            
-            ImageController.fetchImage(image: image, completion: { result in
-               
-                DispatchQueue.main.sync {
-                    switch result {
-                    case .success(let image):
-                        ImageController.readyImages.append(image)
-                    case .failure(let error):
-                        print(error)
-                    }
+                    ImageController.images = object.results
+                    print(ImageController.images.count)
                     self.collectionView.reloadData()
                 }
-                
-            })
+            }
         }
-        
-        
-        
     }
     
-    func loadViews() {
+//    func getImages(images: [ImageInfo]) {
+//        ImageController.readyImages = []
+//        ImageController.readyAltDescription = []
+//        
+//        
+//        images.forEach { image in
+////            if let altDescription = image.altDescription {
+////                ImageController.readyAltDescription.append(altDescription)
+////            } else {
+////                ImageController.readyAltDescription.append(nil)
+////            }
+//            
+//            ImageController.fetchImage(image: image, completion: { result in
+//               
+//                DispatchQueue.main.sync {
+//                    switch result {
+//                    case .success(let image):
+//                        ImageController.readyImages.append(image)
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                    self.collectionView.reloadData()
+//                }
+//                
+//            })
+//        }
         
-    }
+        
+        
+//    }
     
     
     @IBAction func editingChangedQuerySearch(_ sender: Any) {
@@ -144,14 +140,15 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ImageController.readyImages.count
+        return ImageController.images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {return UICollectionViewCell()}
         
-        cell.altDescription = ImageController.readyAltDescription[indexPath.row]
-        cell.readyImage = ImageController.readyImages[indexPath.row]
+//        cell.altDescription = ImageController.readyAltDescription[indexPath.row]
+//        cell.readyImage = ImageController.readyImages[indexPath.row]
+        cell.image = ImageController.images[indexPath.row]
         
         return cell
     }
