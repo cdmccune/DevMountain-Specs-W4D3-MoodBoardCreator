@@ -16,17 +16,16 @@ class CollectionViewCell: UICollectionViewCell {
     
     var image: ImageInfo? {
         didSet {
-            print("")
             updateViews()
         }
     }
     
     
     func updateViews() {
-        guard let image = image else {return
-            print("Why?")
-        }
-        print("hit")
+        
+        self.layer.cornerRadius = 10
+        
+        guard let image = image else {return}
         
         if let altDescription = image.altDescription {
             self.descriptionLabel.text = altDescription
